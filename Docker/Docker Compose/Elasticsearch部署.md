@@ -20,7 +20,7 @@ version: '3.8'
 services:
   es01:
     image: elasticsearch:7.17.10
-    container_name: "es01"
+    container_name: es01
     ports:
       - "9200:9200"
     volumes:
@@ -35,7 +35,7 @@ services:
     image: kibana:7.17.10
     ports:
       - "5601:5601"
-    container_name: "kibana"
+    container_name: kibana
     depends_on:
       - es01
     volumes:
@@ -64,8 +64,8 @@ i18n.locale: zh-CN
 
 ## 参考
 
-Elasticsearch 官方文档：https://www.elastic.co/guide/en/elasticsearch/reference/7.17/docker.html
+Elasticsearch Docker方式部署官方文档：https://www.elastic.co/guide/en/elasticsearch/reference/7.17/docker.html
 
-Kibana 官方文档：https://www.elastic.co/guide/en/kibana/7.17/docker.html
+Kibana Docker部署官方文档：https://www.elastic.co/guide/en/kibana/7.17/docker.html
 
 docker-compose 版本兼容：https://docs.docker.com/compose/compose-file/compose-versioning/

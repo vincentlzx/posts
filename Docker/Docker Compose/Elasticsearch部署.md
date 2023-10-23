@@ -1,5 +1,5 @@
 ---
-title: Elasticsearch7.17.10部署
+title: Elasticsearch7.17.7部署
 categories:
 - [Docker, Docker Compose, Elasticsearch]
 tags:
@@ -10,7 +10,7 @@ tags:
 
 
 
-## Elasticsearch7.17.10单机部署
+## Elasticsearch7.17.7单机部署
 
 编写 docker-compose.yaml 文件
 
@@ -19,27 +19,27 @@ version: '3.8'
 
 services:
   es01:
-    image: elasticsearch:7.17.10
+    image: elasticsearch:7.17.7
     container_name: es01
     ports:
       - "9200:9200"
     volumes:
-      - ./data:/usr/share/elasticsearch/data
-      - ./logs:/usr/share/elasticsearch/logs
-      - ./config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
-      - ./plugins:/usr/share/elasticsearch/plugins
+      - ./elasticsearch/data:/usr/share/elasticsearch/data
+      - ./elasticsearch/logs:/usr/share/elasticsearch/logs
+      - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+      - ./elasticsearch/plugins:/usr/share/elasticsearch/plugins
     environment:
       - discovery.type=single-node
-      - ES_JAVA_OPTS=-Xms1024m -Xmx1g
+      - ES_JAVA_OPTS=-Xms1g -Xmx1g
   kibana:
-    image: kibana:7.17.10
+    image: kibana:7.17.7
     ports:
       - "5601:5601"
     container_name: kibana
     depends_on:
       - es01
     volumes:
-      - ./kibana.yml:/usr/share/kibana/config/kibana.yml
+      - ./kibana/kibana.yml:/usr/share/kibana/config/kibana.yml
 ```
 
 编写 elasticsearch.yml 文件
@@ -62,10 +62,16 @@ xpack.monitoring.ui.container.elasticsearch.enabled: true
 i18n.locale: zh-CN
 ```
 
+## 安装中文分词插件
+
+到开源仓库 **[elasticsearch-analysis-ik](https://github.com/medcl/elasticsearch-analysis-ik)** 中查找与 Elasticsearch 版本号一致的插件（版本号必须一致，否则启动报错）。
+
+安装流程自行参考项目说明。
+
 ## 参考
 
 Elasticsearch Docker方式部署官方文档：https://www.elastic.co/guide/en/elasticsearch/reference/7.17/docker.html
 
 Kibana Docker部署官方文档：https://www.elastic.co/guide/en/kibana/7.17/docker.html
 
-docker-compose 版本兼容：https://docs.docker.com/compose/compose-file/compose-versioning/
+IK 分词插件：https://github.com/medcl/elasticsearch-analysis-ik

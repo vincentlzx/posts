@@ -99,7 +99,7 @@ https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code
 }
 ```
 
-步骤 6 中，客户端可以通过 access_token 和 openid 想微信资源服务器拉取用户信息了：
+步骤 6 中，客户端可以通过 access_token 和 openid 向微信资源服务器拉取用户信息了：
 
 https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN
 
